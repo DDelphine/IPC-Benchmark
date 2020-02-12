@@ -1,1 +1,1 @@
-GCC
+$flag = GCC
