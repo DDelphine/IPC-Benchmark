@@ -1,0 +1,14 @@
+Pipe are used for communication between two related processes.
+
+Pipe.c starts a server process and a client process.
+
+Server process uses user-defined signal SIGUSR2 to notify the client process to read the message.
+Client process uses user-defined signal SIGUSR1 to notify the server process to write the message.
+
+During initialization, client process executes firstly. It sends a signal to the server process to send the message.
+
+Upon receiving the signal SIGUSR1, server process records current time, and begins to write the message to stream that is binded to the pipe. Then server process notify the client proces to read the message by sending SIGUSR2 and wait until it receives the signal from client.
+
+Upon receiving the signal SIGUSR2, client process begins to read the information, after that, it sends SIGUSR1 to server process, waits until getting the notification from server.
+
+Each time server receives the signal from the client after sending the message, it records the time. Then it starts another round to send the message as long as the input argument 'count' is greater than 0.
